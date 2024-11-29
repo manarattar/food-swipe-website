@@ -22,7 +22,6 @@ let meals = [
     {"name": "Lobster Bisque", "img": "meal_images/Lobster_Bisque.png", "description": "Rich and creamy seafood soup made with lobster stock.", "category": "French", "meatKind": "Seafood", "taste": "Savory", "spicy": false}
 ]
 ;
-
 let userPreferences = {
     origin: {},
     meatKind: {},
@@ -43,9 +42,11 @@ const mealOfTheDayDescription = document.getElementById("meal-of-the-day-descrip
 
 const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("close-popup");
+const mainContainer = document.getElementById("main-container");
 
 closePopupButton.addEventListener("click", () => {
     popup.classList.add("hidden");
+    mainContainer.classList.remove("hidden");
 });
 
 function updateMeal() {
@@ -161,4 +162,3 @@ window.onload = () => {
     updateMeal();
     popup.classList.remove("hidden");
 };
-
