@@ -44,30 +44,22 @@ const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("close-popup");
 const mainContainer = document.getElementById("main-container");
 
-// Updated event listener for closing the popup
 closePopupButton.addEventListener("click", () => {
-    popup.style.display = "none";
-    mainContainer.style.display = "block";
-    updateMeal();
+    popup.classList.add("hidden");
+    mainContainer.classList.remove("hidden");
 });
 
 function updateMeal() {
-    if (meals.length === 0) return;
-    if (currentMealIndex >= meals.length) {
-        displayMealOfTheDay();
-        return;
-    }
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     const meal = meals[currentMealIndex];
     mealImg.src = meal.img;
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
     card.classList.remove("swipe-left", "swipe-right");
-    mealOfTheDayContainer.style.display = "none"; // Hide the meal of the day until after 10 swipes
-    card.style.display = "block"; // Ensure the main meal card is displayed
 }
 
 function handleKey(e) {
-    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     if (e.key === "ArrowRight") {
         handleSwipe("right");
     } else if (e.key === "ArrowLeft") {
@@ -76,16 +68,18 @@ function handleKey(e) {
 }
 
 function handleSwipe(direction) {
-    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     if (direction === "right") {
         card.classList.add("swipe-right");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], true);
+            nextMeal();
         }, 500);
     } else if (direction === "left") {
         card.classList.add("swipe-left");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], false);
+            nextMeal();
         }, 500);
     }
 }
@@ -97,7 +91,10 @@ function updatePreferences(meal, liked) {
     userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
     userPreferences.taste[meal.taste] = (userPreferences.taste[meal.taste] || 0) + weight * 2;
 
-    nextMeal();
+    if (currentMealIndex >= 10) {
+        recommendMeals();
+        displayMealOfTheDay();
+    }
 }
 
 function recommendMeals() {
@@ -121,13 +118,9 @@ function recommendMeals() {
 }
 
 function nextMeal() {
-    currentMealIndex++;
-    if (currentMealIndex < meals.length) {
-        updateMeal();
-    } else {
-        recommendMeals();
-        displayMealOfTheDay();
-    }
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
+    currentMealIndex = (currentMealIndex + 1) % meals.length;
+    updateMeal();
 }
 
 function displayMealOfTheDay() {
@@ -136,8 +129,8 @@ function displayMealOfTheDay() {
     mealOfTheDayImg.src = bestMatch.img;
     mealOfTheDayName.textContent = bestMatch.name;
     mealOfTheDayDescription.textContent = bestMatch.description;
-    mealOfTheDayContainer.style.display = "block";
-    mainContainer.style.display = "none"; // Hide the main container when showing the meal of the day
+    mealOfTheDayContainer.classList.remove("hidden");
+    card.classList.add("hidden");
 }
 
 document.addEventListener("keydown", handleKey);
@@ -156,4 +149,16 @@ function handleGesture() {
 }
 
 document.addEventListener("touchstart", (e) => {
-    touchstartX = e.changedTouches
+    touchstartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    handleGesture();
+});
+
+// Show popup when the page loads
+window.onload = () => {
+    updateMeal();
+    popup.classList.remove("hidden");
+};
