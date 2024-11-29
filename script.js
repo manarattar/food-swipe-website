@@ -48,7 +48,7 @@ const mainContainer = document.getElementById("main-container");
 closePopupButton.addEventListener("click", () => {
     popup.style.display = "none";
     mainContainer.style.display = "block";
-    updateMeal();
+    updateMeal(); // Ensure the meal is loaded immediately
 });
 
 function updateMeal() {
@@ -62,7 +62,7 @@ function updateMeal() {
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
     card.classList.remove("swipe-left", "swipe-right");
-    mealOfTheDayContainer.style.display = "none"; // Hide the meal of the day until after 10 swipes
+    mealOfTheDayContainer.style.display = "none"; // Hide the meal of the day until after all swipes
     card.style.display = "block"; // Ensure the main meal card is displayed
 }
 
@@ -166,6 +166,5 @@ document.addEventListener("touchend", (e) => {
 
 // Show popup when the page loads
 window.onload = () => {
-    updateMeal();
     popup.style.display = "flex";
 };
