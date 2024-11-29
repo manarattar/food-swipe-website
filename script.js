@@ -31,6 +31,7 @@ let userPreferences = {
     spicy: {},
 };
 
+const card = document.getElementById("card");
 const mealImg = document.getElementById("meal-img");
 const mealName = document.getElementById("meal-name");
 const mealDescription = document.getElementById("meal-description");
@@ -40,37 +41,45 @@ const mealOfTheDayImg = document.getElementById("meal-of-the-day-img");
 const mealOfTheDayName = document.getElementById("meal-of-the-day-name");
 const mealOfTheDayDescription = document.getElementById("meal-of-the-day-description");
 
+const popup = document.getElementById("popup");
+const closePopupButton = document.getElementById("close-popup");
+
+closePopupButton.addEventListener("click", () => {
+    popup.classList.add("hidden");
+});
+
 function updateMeal() {
-    if (meals.length === 0) return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     const meal = meals[currentMealIndex];
     mealImg.src = meal.img;
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
+    card.classList.remove("swipe-left", "swipe-right");
 }
 
 function handleKey(e) {
-    if (meals.length === 0) return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     if (e.key === "ArrowRight") {
-        console.log(`You liked: ${meals[currentMealIndex].name}`);
-        updatePreferences(meals[currentMealIndex], true);
-        nextMeal();
+        handleSwipe("right");
     } else if (e.key === "ArrowLeft") {
-        console.log(`You disliked: ${meals[currentMealIndex].name}`);
-        updatePreferences(meals[currentMealIndex], false);
-        nextMeal();
+        handleSwipe("left");
     }
 }
 
 function handleSwipe(direction) {
-    if (meals.length === 0) return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     if (direction === "right") {
-        console.log(`You liked: ${meals[currentMealIndex].name}`);
-        updatePreferences(meals[currentMealIndex], true);
-        nextMeal();
+        card.classList.add("swipe-right");
+        setTimeout(() => {
+            updatePreferences(meals[currentMealIndex], true);
+            nextMeal();
+        }, 500);
     } else if (direction === "left") {
-        console.log(`You disliked: ${meals[currentMealIndex].name}`);
-        updatePreferences(meals[currentMealIndex], false);
-        nextMeal();
+        card.classList.add("swipe-left");
+        setTimeout(() => {
+            updatePreferences(meals[currentMealIndex], false);
+            nextMeal();
+        }, 500);
     }
 }
 
@@ -108,7 +117,7 @@ function recommendMeals() {
 }
 
 function nextMeal() {
-    if (meals.length === 0) return;
+    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
     currentMealIndex = (currentMealIndex + 1) % meals.length;
     updateMeal();
 }
@@ -120,6 +129,7 @@ function displayMealOfTheDay() {
     mealOfTheDayName.textContent = bestMatch.name;
     mealOfTheDayDescription.textContent = bestMatch.description;
     mealOfTheDayContainer.classList.remove("hidden");
+    card.classList.add("hidden");
 }
 
 document.addEventListener("keydown", handleKey);
@@ -146,7 +156,9 @@ document.addEventListener("touchend", (e) => {
     handleGesture();
 });
 
-// Initialize with the first meal
+// Show popup when the page loads
 window.onload = () => {
     updateMeal();
+    popup.classList.remove("hidden");
 };
+
