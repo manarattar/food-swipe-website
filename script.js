@@ -22,6 +22,14 @@ let meals = [
     {"name": "Lobster Bisque", "img": "meal_images/Lobster_Bisque.png", "description": "Rich and creamy seafood soup made with lobster stock.", "category": "French", "meatKind": "Seafood", "taste": "Savory", "spicy": false}
 ]
 ;
+let userPreferences = {
+    origin: {},
+    meatKind: {},
+    type: {},
+    taste: {},
+    spicy: {},
+};
+
 const card = document.getElementById("card");
 const mealImg = document.getElementById("meal-img");
 const mealName = document.getElementById("meal-name");
@@ -51,6 +59,7 @@ function updateMeal() {
     mealDescription.textContent = meal.description;
     card.classList.remove("swipe-left", "swipe-right");
     mealOfTheDayContainer.style.display = "none"; // Hide the meal of the day until after 10 swipes
+    card.style.display = "block"; // Ensure the main meal card is displayed
 }
 
 function handleKey(e) {
@@ -126,6 +135,7 @@ function displayMealOfTheDay() {
     mealOfTheDayDescription.textContent = bestMatch.description;
     mealOfTheDayContainer.style.display = "block";
     mainContainer.style.display = "none"; // Hide the main container when showing the meal of the day
+    card.style.display = "none"; // Hide the card to ensure only meal of the day is visible
 }
 
 document.addEventListener("keydown", handleKey);
