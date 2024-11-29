@@ -22,14 +22,6 @@ let meals = [
     {"name": "Lobster Bisque", "img": "meal_images/Lobster_Bisque.png", "description": "Rich and creamy seafood soup made with lobster stock.", "category": "French", "meatKind": "Seafood", "taste": "Savory", "spicy": false}
 ]
 ;
-let userPreferences = {
-    origin: {},
-    meatKind: {},
-    type: {},
-    taste: {},
-    spicy: {},
-};
-
 const card = document.getElementById("card");
 const mealImg = document.getElementById("meal-img");
 const mealName = document.getElementById("meal-name");
@@ -52,17 +44,17 @@ closePopupButton.addEventListener("click", () => {
 });
 
 function updateMeal() {
-    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
+    if (meals.length === 0) return;
     const meal = meals[currentMealIndex];
     mealImg.src = meal.img;
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
     card.classList.remove("swipe-left", "swipe-right");
-    mealOfTheDayContainer.classList.add("hidden"); // Hide the meal of the day until after 10 swipes
+    mealOfTheDayContainer.style.display = "none"; // Hide the meal of the day until after 10 swipes
 }
 
 function handleKey(e) {
-    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
+    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
     if (e.key === "ArrowRight") {
         handleSwipe("right");
     } else if (e.key === "ArrowLeft") {
@@ -71,7 +63,7 @@ function handleKey(e) {
 }
 
 function handleSwipe(direction) {
-    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
+    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
     if (direction === "right") {
         card.classList.add("swipe-right");
         setTimeout(() => {
@@ -94,7 +86,7 @@ function updatePreferences(meal, liked) {
     userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
     userPreferences.taste[meal.taste] = (userPreferences.taste[meal.taste] || 0) + weight * 2;
 
-    if (currentMealIndex >= 10) {
+    if (currentMealIndex >= 9) { // After the 10th swipe
         recommendMeals();
         displayMealOfTheDay();
     }
@@ -121,7 +113,7 @@ function recommendMeals() {
 }
 
 function nextMeal() {
-    if (meals.length === 0 || !mealOfTheDayContainer.classList.contains("hidden")) return;
+    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
     currentMealIndex = (currentMealIndex + 1) % meals.length;
     updateMeal();
 }
@@ -132,7 +124,7 @@ function displayMealOfTheDay() {
     mealOfTheDayImg.src = bestMatch.img;
     mealOfTheDayName.textContent = bestMatch.name;
     mealOfTheDayDescription.textContent = bestMatch.description;
-    mealOfTheDayContainer.classList.remove("hidden");
+    mealOfTheDayContainer.style.display = "block";
     mainContainer.style.display = "none"; // Hide the main container when showing the meal of the day
 }
 
