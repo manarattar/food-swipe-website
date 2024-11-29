@@ -156,16 +156,4 @@ function handleGesture() {
 }
 
 document.addEventListener("touchstart", (e) => {
-    touchstartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener("touchend", (e) => {
-    touchendX = e.changedTouches[0].screenX;
-    handleGesture();
-});
-
-// Show popup when the page loads
-window.onload = () => {
-    updateMeal();
-    popup.style.display = "flex";
-};
+    touchstartX = e.changedTouches
