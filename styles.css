@@ -8,6 +8,10 @@ body {
     background-color: #f0f0f0;
 }
 
+#main-container.hidden {
+    display: none;
+}
+
 .container {
     width: 300px;
     position: relative;
@@ -93,3 +97,4 @@ body {
 .popup-content button:hover {
     background-color: #0056b3;
 }
+ 
