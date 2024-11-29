@@ -53,6 +53,10 @@ closePopupButton.addEventListener("click", () => {
 
 function updateMeal() {
     if (meals.length === 0) return;
+    if (currentMealIndex >= meals.length) {
+        displayMealOfTheDay();
+        return;
+    }
     const meal = meals[currentMealIndex];
     mealImg.src = meal.img;
     mealName.textContent = meal.name;
@@ -95,12 +99,7 @@ function updatePreferences(meal, liked) {
     userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
     userPreferences.taste[meal.taste] = (userPreferences.taste[meal.taste] || 0) + weight * 2;
 
-    if (currentMealIndex >= 9) { // After the 10th swipe
-        recommendMeals();
-        displayMealOfTheDay();
-    } else {
-        nextMeal();
-    }
+    nextMeal();
 }
 
 function recommendMeals() {
@@ -124,11 +123,11 @@ function recommendMeals() {
 }
 
 function nextMeal() {
-    if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
     currentMealIndex++;
-    if (currentMealIndex < meals.length) {
+    if (currentMealIndex < 10) {
         updateMeal();
     } else {
+        recommendMeals();
         displayMealOfTheDay();
     }
 }
