@@ -98,3 +98,10 @@ body {
 .popup-content button:hover {
     background-color: #0056b3;
 }
+
+/* Ensure the visibility behavior is managed properly */
+@media only screen and (min-width: 600px) {
+    .container, .meal-of-the-day {
+        transition: opacity 0.5s ease;
+    }
+}
