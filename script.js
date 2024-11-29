@@ -98,6 +98,8 @@ function updatePreferences(meal, liked) {
     if (currentMealIndex >= 9) { // After the 10th swipe
         recommendMeals();
         displayMealOfTheDay();
+    } else {
+        nextMeal();
     }
 }
 
@@ -123,8 +125,12 @@ function recommendMeals() {
 
 function nextMeal() {
     if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
-    currentMealIndex = (currentMealIndex + 1) % meals.length;
-    updateMeal();
+    currentMealIndex++;
+    if (currentMealIndex < meals.length) {
+        updateMeal();
+    } else {
+        displayMealOfTheDay();
+    }
 }
 
 function displayMealOfTheDay() {
