@@ -81,13 +81,11 @@ function handleSwipe(direction) {
         card.classList.add("swipe-right");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], true);
-            nextMeal();
         }, 500);
     } else if (direction === "left") {
         card.classList.add("swipe-left");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], false);
-            nextMeal();
         }, 500);
     }
 }
@@ -124,7 +122,7 @@ function recommendMeals() {
 
 function nextMeal() {
     currentMealIndex++;
-    if (currentMealIndex < 10) {
+    if (currentMealIndex < meals.length) {
         updateMeal();
     } else {
         recommendMeals();
@@ -140,7 +138,6 @@ function displayMealOfTheDay() {
     mealOfTheDayDescription.textContent = bestMatch.description;
     mealOfTheDayContainer.style.display = "block";
     mainContainer.style.display = "none"; // Hide the main container when showing the meal of the day
-    card.style.display = "none"; // Hide the card to ensure only meal of the day is visible
 }
 
 document.addEventListener("keydown", handleKey);
