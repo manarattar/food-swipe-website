@@ -44,9 +44,10 @@ const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("close-popup");
 const mainContainer = document.getElementById("main-container");
 
+// Updated event listener for closing the popup
 closePopupButton.addEventListener("click", () => {
-    popup.classList.add("hidden");
-    mainContainer.classList.remove("hidden");
+    popup.style.display = "none";
+    mainContainer.style.display = "block";
 });
 
 function updateMeal() {
@@ -160,5 +161,6 @@ document.addEventListener("touchend", (e) => {
 // Show popup when the page loads
 window.onload = () => {
     updateMeal();
-    popup.classList.remove("hidden");
+    popup.style.display = "flex";
 };
+
