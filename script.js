@@ -46,18 +46,25 @@ const mainContainer = document.getElementById("main-container");
 
 // Updated event listener for closing the popup
 closePopupButton.addEventListener("click", () => {
+    console.log("Popup closed");
     popup.style.display = "none";
     mainContainer.style.display = "block";
     updateMeal(); // Ensure the meal is loaded immediately
 });
 
 function updateMeal() {
-    if (meals.length === 0) return;
+    console.log("Updating meal...");
+    if (meals.length === 0) {
+        console.error("No meals available to display.");
+        return;
+    }
     if (currentMealIndex >= meals.length) {
+        console.log("Displaying meal of the day...");
         displayMealOfTheDay();
         return;
     }
     const meal = meals[currentMealIndex];
+    console.log(`Displaying meal: ${meal.name}`);
     mealImg.src = meal.img;
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
@@ -78,11 +85,13 @@ function handleKey(e) {
 function handleSwipe(direction) {
     if (meals.length === 0 || mealOfTheDayContainer.style.display === "block") return;
     if (direction === "right") {
+        console.log("Swiped right");
         card.classList.add("swipe-right");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], true);
         }, 500);
     } else if (direction === "left") {
+        console.log("Swiped left");
         card.classList.add("swipe-left");
         setTimeout(() => {
             updatePreferences(meals[currentMealIndex], false);
@@ -91,6 +100,7 @@ function handleSwipe(direction) {
 }
 
 function updatePreferences(meal, liked) {
+    console.log(`Updating preferences for meal: ${meal.name}, liked: ${liked}`);
     const weight = liked ? 1 : -1;
     userPreferences.origin[meal.category] = (userPreferences.origin[meal.category] || 0) + weight * 2;
     userPreferences.meatKind[meal.meatKind] = (userPreferences.meatKind[meal.meatKind] || 0) + weight * 3;
@@ -101,6 +111,7 @@ function updatePreferences(meal, liked) {
 }
 
 function recommendMeals() {
+    console.log("Recommending meals based on user preferences...");
     meals.sort((a, b) => {
         let scoreA = 0;
         let scoreB = 0;
@@ -122,6 +133,7 @@ function recommendMeals() {
 
 function nextMeal() {
     currentMealIndex++;
+    console.log(`Next meal index: ${currentMealIndex}`);
     if (currentMealIndex < meals.length) {
         updateMeal();
     } else {
@@ -131,7 +143,11 @@ function nextMeal() {
 }
 
 function displayMealOfTheDay() {
-    if (meals.length === 0) return;
+    console.log("Displaying meal of the day...");
+    if (meals.length === 0) {
+        console.error("No meals available to display.");
+        return;
+    }
     const bestMatch = meals[0];
     mealOfTheDayImg.src = bestMatch.img;
     mealOfTheDayName.textContent = bestMatch.name;
@@ -166,5 +182,6 @@ document.addEventListener("touchend", (e) => {
 
 // Show popup when the page loads
 window.onload = () => {
+    console.log("Page loaded. Displaying popup...");
     popup.style.display = "flex";
 };
