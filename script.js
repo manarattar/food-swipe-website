@@ -48,6 +48,7 @@ const mainContainer = document.getElementById("main-container");
 closePopupButton.addEventListener("click", () => {
     popup.style.display = "none";
     mainContainer.style.display = "block";
+    updateMeal();
 });
 
 function updateMeal() {
@@ -163,4 +164,6 @@ window.onload = () => {
     updateMeal();
     popup.style.display = "flex";
 };
+
+
 
