@@ -58,6 +58,7 @@ function updateMeal() {
     mealName.textContent = meal.name;
     mealDescription.textContent = meal.description;
     card.classList.remove("swipe-left", "swipe-right");
+    mealOfTheDayContainer.classList.add("hidden"); // Hide the meal of the day until after 10 swipes
 }
 
 function handleKey(e) {
@@ -132,7 +133,7 @@ function displayMealOfTheDay() {
     mealOfTheDayName.textContent = bestMatch.name;
     mealOfTheDayDescription.textContent = bestMatch.description;
     mealOfTheDayContainer.classList.remove("hidden");
-    card.classList.add("hidden");
+    mainContainer.style.display = "none"; // Hide the main container when showing the meal of the day
 }
 
 document.addEventListener("keydown", handleKey);
@@ -164,6 +165,3 @@ window.onload = () => {
     updateMeal();
     popup.style.display = "flex";
 };
-
-
-
