@@ -61,6 +61,19 @@ function handleKey(e) {
     }
 }
 
+function handleSwipe(direction) {
+    if (meals.length === 0) return;
+    if (direction === "right") {
+        console.log(`You liked: ${meals[currentMealIndex].name}`);
+        updatePreferences(meals[currentMealIndex], true);
+        nextMeal();
+    } else if (direction === "left") {
+        console.log(`You disliked: ${meals[currentMealIndex].name}`);
+        updatePreferences(meals[currentMealIndex], false);
+        nextMeal();
+    }
+}
+
 function updatePreferences(meal, liked) {
     const weight = liked ? 1 : -1;
     userPreferences.origin[meal.category] = (userPreferences.origin[meal.category] || 0) + weight * 2;
@@ -110,6 +123,28 @@ function displayMealOfTheDay() {
 }
 
 document.addEventListener("keydown", handleKey);
+
+// Add touch event listeners for swipe functionality on mobile
+let touchstartX = 0;
+let touchendX = 0;
+
+function handleGesture() {
+    if (touchendX < touchstartX - 50) {
+        handleSwipe("left");
+    }
+    if (touchendX > touchstartX + 50) {
+        handleSwipe("right");
+    }
+}
+
+document.addEventListener("touchstart", (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    handleGesture();
+});
 
 // Initialize with the first meal
 window.onload = () => {
