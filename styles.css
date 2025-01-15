@@ -23,7 +23,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
 .card.swipe-right {
@@ -41,6 +41,17 @@ body {
     border-radius: 10px;
 }
 
+.card img[alt="Meal Image"] {
+    background: #e0e0e0;
+    color: #757575;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    text-align: center;
+    height: 200px; /* Fallback size */
+}
+
 .card h2 {
     margin: 10px 0;
 }
@@ -52,7 +63,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    display: none; /* Initially hide the meal of the day */
+    display: none; /* Initially hidden */
 }
 
 .meal-of-the-day img {
@@ -83,6 +94,7 @@ body {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .popup-content button {
@@ -93,8 +105,32 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .popup-content button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
