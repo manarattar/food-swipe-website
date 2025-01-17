@@ -7,22 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>Welcome to Food Swipe Selection!</h2>
+            <p>Swipe right if you like a meal, and swipe left if you don't. After 10 swipes, we'll show you the perfect match meal of the day based on your preferences.</p>
+            <p>Swipe right if you like a meal, and swipe left if you don't. After 20 swipes, we'll show you the perfect match meal of the day based on your preferences.</p>
+            <button id="close-popup">Got it!</button>
+        </div>
+    </div>
+    <div id="main-container" class="container hidden">
         <div id="card" class="card">
             <img id="meal-img" src="" alt="Meal Image">
             <h2 id="meal-name">Meal Name</h2>
             <p id="meal-description">Meal Description</p>
-            <div class="actions">
-                <button id="like-button" class="like-button">Like</button>
-                <button id="dislike-button" class="dislike-button">Dislike</button>
-            </div>
         </div>
-        <div id="meal-of-the-day" class="meal-of-the-day hidden">
-            <h2>Meal of the Day</h2>
-            <img id="meal-of-the-day-img" src="" alt="Meal of the Day Image">
-            <h3 id="meal-of-the-day-name">Meal Name</h3>
-            <p id="meal-of-the-day-description">Meal Description</p>
-        </div>
+    </div>
+    <div id="meal-of-the-day" class="meal-of-the-day hidden">
+        <h2>Meal of the Day</h2>
+        <img id="meal-of-the-day-img" src="" alt="Meal of the Day Image">
+        <h3 id="meal-of-the-day-name">Meal Name</h3>
+        <p id="meal-of-the-day-description">Meal Description</p>
     </div>
     <script src="script.js"></script>
 </body>
