@@ -8,6 +8,16 @@ body {
     background-color: #f0f0f0;
 }
 
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif;
+    color: #007bff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 #main-container {
     display: none;
 }
