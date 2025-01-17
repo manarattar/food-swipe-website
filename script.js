@@ -53,6 +53,7 @@ closePopupButton.addEventListener("click", () => {
 });
 
 function updateMeal() {
+    if (meals.length === 0) return;
     console.log("Updating meal...");
     if (meals.length === 0) {
         console.error("No meals available to display.");
@@ -143,6 +144,7 @@ function nextMeal() {
 }
 
 function displayMealOfTheDay() {
+    if (meals.length === 0) return;
     console.log("Displaying meal of the day...");
     if (meals.length === 0) {
         console.error("No meals available to display.");
@@ -179,20 +181,6 @@ document.addEventListener("touchend", (e) => {
     touchendX = e.changedTouches[0].screenX;
     handleGesture();
 });
-// const likeButton = document.getElementById("like-button");
-// const dislikeButton = document.getElementById("dislike-button");
-
-// // Handle "Like" button click
-// likeButton.addEventListener("click", () => {
-//     console.log("Like button clicked");
-//     handleSwipe("right");
-// });
-
-// Handle "Dislike" button click
-// dislikeButton.addEventListener("click", () => {
-//     console.log("Dislike button clicked");
-//     handleSwipe("left");
-// });
 
 // Show popup when the page loads
 window.onload = () => {
