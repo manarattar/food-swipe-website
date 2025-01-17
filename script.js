@@ -44,6 +44,9 @@ const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("close-popup");
 const mainContainer = document.getElementById("main-container");
 
+const likeButton = document.getElementById("like-button");
+const dislikeButton = document.getElementById("dislike-button");
+
 // Updated event listener for closing the popup
 closePopupButton.addEventListener("click", () => {
     console.log("Popup closed");
@@ -181,6 +184,10 @@ document.addEventListener("touchend", (e) => {
     touchendX = e.changedTouches[0].screenX;
     handleGesture();
 });
+
+// Add event listeners for Like and Dislike buttons
+likeButton.addEventListener("click", () => handleSwipe("right"));
+dislikeButton.addEventListener("click", () => handleSwipe("left"));
 
 // Show popup when the page loads
 window.onload = () => {
