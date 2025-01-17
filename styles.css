@@ -1,101 +1,34 @@
-body {
+.actions {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
-
-#main-container {
-    display: none;
-}
-
-.container {
-    width: 300px;
-    position: relative;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.5s ease;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.card.swipe-right {
-    transform: translateX(100%);
-    opacity: 0;
-}
-
-.card.swipe-left {
-    transform: translateX(-100%);
-    opacity: 0;
-}
-
-.card img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.card h2 {
-    margin: 10px 0;
-}
-
-.meal-of-the-day {
+    justify-content: space-around;
     margin-top: 20px;
-    padding: 20px;
-    background: #fff8e1;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: none; /* Initially hide the meal of the day */
 }
 
-.meal-of-the-day img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup.hidden {
-    display: none;
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.popup-content button {
-    margin-top: 20px;
+.like-button, .dislike-button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.popup-content button:hover {
-    background-color: #0056b3;
+.like-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.like-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.dislike-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.dislike-button:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
 }
