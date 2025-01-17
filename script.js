@@ -179,20 +179,20 @@ document.addEventListener("touchend", (e) => {
     touchendX = e.changedTouches[0].screenX;
     handleGesture();
 });
-const likeButton = document.getElementById("like-button");
-const dislikeButton = document.getElementById("dislike-button");
+// const likeButton = document.getElementById("like-button");
+// const dislikeButton = document.getElementById("dislike-button");
 
-// Handle "Like" button click
-likeButton.addEventListener("click", () => {
-    console.log("Like button clicked");
-    handleSwipe("right");
-});
+// // Handle "Like" button click
+// likeButton.addEventListener("click", () => {
+//     console.log("Like button clicked");
+//     handleSwipe("right");
+// });
 
-// Handle "Dislike" button click
-dislikeButton.addEventListener("click", () => {
-    console.log("Dislike button clicked");
-    handleSwipe("left");
-});
+// // Handle "Dislike" button click
+// dislikeButton.addEventListener("click", () => {
+//     console.log("Dislike button clicked");
+//     handleSwipe("left");
+// });
 
 // Show popup when the page loads
 window.onload = () => {
