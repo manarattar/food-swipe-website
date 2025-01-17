@@ -99,3 +99,53 @@ body {
 .popup-content button:hover {
     background-color: #0056b3;
 }
+/* Like and Dislike Buttons */
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #f0f0f0;
+    border: 2px solid #dcdcdc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.button:focus {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+.button i {
+    font-size: 24px;
+    color: #007bff;
+}
+
+.button.like {
+    border-color: #28a745;
+}
+
+.button.like i {
+    color: #28a745;
+}
+
+.button.dislike {
+    border-color: #dc3545;
+}
+
+.button.dislike i {
+    color: #dc3545;
+}
