@@ -188,7 +188,7 @@ document.addEventListener("touchend", (e) => {
 //     handleSwipe("right");
 // });
 
-// // Handle "Dislike" button click
+// Handle "Dislike" button click
 // dislikeButton.addEventListener("click", () => {
 //     console.log("Dislike button clicked");
 //     handleSwipe("left");
