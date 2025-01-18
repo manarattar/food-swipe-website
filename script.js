@@ -1,4 +1,4 @@
-import meals from './meals_data.js';
+import meals from 'meals_data.js';
 let currentMealIndex = 0;
 
 let userPreferences = {
