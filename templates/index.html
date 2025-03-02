@@ -9,16 +9,17 @@
 </head>
 <body>
 
-    <!-- Popup -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Welcome to Food Swipe Selection!</h2>
-            <p>Swipe right if you like a meal, and swipe left if you don't. After 20 swipes, we'll show you the perfect match meal of the day based on your preferences.</p>
-            <button id="close-popup">Got it!</button>
+    <!-- Start Page (Instructions) -->
+    <div id="start-page" class="start-page">
+        <div class="start-content">
+            <h1>Welcome to SwipEat</h1>
+            <p>Swipe right if you like a meal, and swipe left if you don't.</p>
+            <p>Once you swipe your first meal, we'll start tracking your preferences.</p>
+            <p>Start swiping to continue!</p>
         </div>
     </div>
 
-    <!-- Main Container -->
+    <!-- Main Container (Hidden at First) -->
     <div id="main-container" class="container hidden">
         <div id="card" class="card">
             <header>
@@ -44,20 +45,25 @@
         </div>
     </div>
 
-    <!-- JavaScript to Enable Swiping and Popup Closing -->
+    <!-- JavaScript to Handle Swiping & Transition -->
     <script>
-        // Close Popup & Show Main Content
-        document.getElementById("close-popup").addEventListener("click", function () {
-            document.getElementById("popup").style.display = "none"; // Hide popup
-            document.getElementById("main-container").classList.remove("hidden"); // Show main content
-        });
-
-        // Swiping Feature
         let touchstartX = 0;
         let touchendX = 0;
         const card = document.getElementById("card");
 
+        // Function to handle first swipe (hides start page)
+        function firstSwipe() {
+            document.getElementById("start-page").style.display = "none"; // Hide start page
+            document.getElementById("main-container").classList.remove("hidden"); // Show meal selection
+        }
+
+        // Handle gestures
         function handleGesture() {
+            if (document.getElementById("start-page").style.display !== "none") {
+                firstSwipe(); // If still on the start page, hide it on first swipe
+                return;
+            }
+
             if (touchendX < touchstartX - 50) {
                 document.getElementById("dislike-button").click(); // Swipe Left → Dislike
             }
@@ -75,8 +81,13 @@
             handleGesture();
         });
 
-        // Also enable keyboard support (Arrow Left/Right)
+        // Enable keyboard support (Arrow Left/Right)
         document.addEventListener("keydown", function (e) {
+            if (document.getElementById("start-page").style.display !== "none") {
+                firstSwipe(); // Hide start page on first key press
+                return;
+            }
+
             if (e.key === "ArrowLeft") {
                 document.getElementById("dislike-button").click();
             } else if (e.key === "ArrowRight") {
