@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://your-app-name.onrender.com"; // Update this with your Render URL
+const BACKEND_URL = "https://food-swipe-website.onrender.com"; // Update this with your Render URL
 
 async function fetchMeal() {
     try {
