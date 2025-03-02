@@ -1,3 +1,4 @@
+/* General Styling */
 body {
     display: flex;
     justify-content: center;
@@ -8,12 +9,14 @@ body {
     background-color: #f0f0f0;
 }
 
+/* Header */
 header {
     text-align: center;
     margin-bottom: 20px; /* Adjust spacing between the title and the card */
     width: 100%; /* Ensure the title spans across the page */
 }
 
+/* App Title */
 .title {
     font-size: 3rem;
     font-weight: bold;
@@ -21,8 +24,10 @@ header {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     margin: 0; /* Avoid extra margins */
 }
-#main-container {
-    display: none;
+
+/* 🔹 FIXED: Ensure Main Container Shows After Popup Closes */
+#main-container.hidden {
+    display: none !important;
 }
 
 .container {
@@ -30,16 +35,17 @@ header {
     position: relative;
 }
 
+/* Card Styling */
 .card {
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.5s ease;
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+/* Swipe Animations */
 .card.swipe-right {
     transform: translateX(100%);
     opacity: 0;
@@ -59,6 +65,7 @@ header {
     margin: 10px 0;
 }
 
+/* Meal of the Day (Initially Hidden) */
 .meal-of-the-day {
     margin-top: 20px;
     padding: 20px;
@@ -66,7 +73,7 @@ header {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    display: none; /* Initially hide the meal of the day */
+    display: none;
 }
 
 .meal-of-the-day img {
@@ -74,6 +81,7 @@ header {
     border-radius: 10px;
 }
 
+/* 🔹 FIXED: Ensure Popup Hides Correctly */
 .popup {
     position: fixed;
     top: 0;
@@ -91,6 +99,7 @@ header {
     display: none;
 }
 
+/* Popup Content */
 .popup-content {
     background: white;
     padding: 20px;
@@ -112,7 +121,8 @@ header {
 .popup-content button:hover {
     background-color: #0056b3;
 }
-/* Like and Dislike Buttons */
+
+/* Like & Dislike Buttons */
 .buttons {
     display: flex;
     justify-content: space-around;
@@ -147,6 +157,7 @@ header {
     color: #007bff;
 }
 
+/* Like Button */
 .button.like {
     border-color: #28a745;
 }
@@ -155,6 +166,7 @@ header {
     color: #28a745;
 }
 
+/* Dislike Button */
 .button.dislike {
     border-color: #dc3545;
 }
