@@ -45,22 +45,23 @@
         </div>
     </div>
 
-    <!-- JavaScript to Handle Swiping & Transition -->
+    <!-- JavaScript to Handle Swiping & Start Page -->
     <script>
         let touchstartX = 0;
         let touchendX = 0;
         const card = document.getElementById("card");
+        const startPage = document.getElementById("start-page");
+        const mainContainer = document.getElementById("main-container");
 
-        // Function to handle first swipe (hides start page)
         function firstSwipe() {
-            document.getElementById("start-page").style.display = "none"; // Hide start page
-            document.getElementById("main-container").classList.remove("hidden"); // Show meal selection
+            startPage.style.display = "none"; // Hide instructions
+            mainContainer.classList.remove("hidden"); // Show meals
+            localStorage.setItem("seenInstructions", "true"); // Save that user has seen the instructions
         }
 
-        // Handle gestures
         function handleGesture() {
-            if (document.getElementById("start-page").style.display !== "none") {
-                firstSwipe(); // If still on the start page, hide it on first swipe
+            if (startPage.style.display !== "none") {
+                firstSwipe();
                 return;
             }
 
@@ -72,19 +73,19 @@
             }
         }
 
-        card.addEventListener("touchstart", (e) => {
+        document.addEventListener("touchstart", (e) => {
             touchstartX = e.changedTouches[0].screenX;
         });
 
-        card.addEventListener("touchend", (e) => {
+        document.addEventListener("touchend", (e) => {
             touchendX = e.changedTouches[0].screenX;
             handleGesture();
         });
 
         // Enable keyboard support (Arrow Left/Right)
         document.addEventListener("keydown", function (e) {
-            if (document.getElementById("start-page").style.display !== "none") {
-                firstSwipe(); // Hide start page on first key press
+            if (startPage.style.display !== "none") {
+                firstSwipe();
                 return;
             }
 
@@ -94,6 +95,14 @@
                 document.getElementById("like-button").click();
             }
         });
+
+        // Ensure instruction page is only shown once
+        window.onload = function () {
+            if (localStorage.getItem("seenInstructions") === "true") {
+                startPage.style.display = "none"; // Hide if already seen
+                mainContainer.classList.remove("hidden"); // Show meals
+            }
+        };
     </script>
 
 </body>
