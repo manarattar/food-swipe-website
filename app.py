@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for
 import json
 import os
 
@@ -8,8 +8,9 @@ app = Flask(__name__)
 with open("meals_data.json", "r") as file:
     meals = json.load(file)
 
-# Track current meal index
+# Track swiping progress
 current_meal_index = 0
+total_swipes = len(meals)
 
 # User preferences storage
 user_preferences = {
@@ -22,22 +23,39 @@ user_preferences = {
 
 @app.route("/")
 def index():
-    """Render the main page with the current meal."""
+    """Render the meal selection page or 'Meal of the Day' if swiping is complete."""
     global current_meal_index
-    if not meals:
-        return "No meals available"
+
+    # If swiping is complete, show "Meal of the Day"
+    if current_meal_index >= total_swipes:
+        best_meal = recommend_best_meal()
+        return render_template("meal_of_the_day.html", meal=best_meal)
 
     meal = meals[current_meal_index]
-
-    # Ensure correct image path for Flask static serving
     meal["img"] = url_for("static", filename=f"meal_images/{os.path.basename(meal['img'])}")
 
     return render_template("index.html", meal=meal)
+
+def recommend_best_meal():
+    """Sort meals based on user preferences and return the best recommendation."""
+    def meal_score(meal):
+        score = 0
+        score += user_preferences["origin"].get(meal["category"], 0) * 2
+        score += user_preferences["meatKind"].get(meal["meatKind"], 0) * 3
+        score += user_preferences["type"].get("Spicy" if meal["spicy"] else "Not Spicy", 0)
+        score += user_preferences["taste"].get(meal["taste"], 0) * 2
+        return score
+
+    sorted_meals = sorted(meals, key=meal_score, reverse=True)
+    return sorted_meals[0] if sorted_meals else None
 
 @app.route("/swipe/<action>", methods=["POST"])
 def swipe(action):
     """Handle Like or Dislike button clicks (swipes)."""
     global current_meal_index
+    if current_meal_index >= total_swipes:
+        return redirect(url_for("index"))  # Stop swiping if all meals are viewed
+
     meal = meals[current_meal_index]
     liked = (action == "like")
 
@@ -51,13 +69,8 @@ def swipe(action):
     user_preferences["taste"][meal["taste"]] = user_preferences["taste"].get(meal["taste"], 0) + weight * 2
 
     # Move to next meal
-    current_meal_index = (current_meal_index + 1) % len(meals)
+    current_meal_index += 1
     return redirect(url_for("index"))
-
-@app.route("/static/meal_images/<filename>")
-def meal_images(filename):
-    """Serve images from the static folder."""
-    return send_from_directory("static/meal_images", filename)
 
 if __name__ == "__main__":
     app.run(debug=True)
