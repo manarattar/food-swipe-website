@@ -6,7 +6,6 @@
     <title>Food Swipe Selection</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
     
@@ -17,7 +16,9 @@
             <button id="close-popup">Got it!</button>
         </div>
     </div>
-    <div id="main-container" class="container hidden">
+
+    <!-- Ensure the main container is visible -->
+    <div id="main-container" class="container">
         <div id="card" class="card">
             <header>
                 <h1 class="title">SwipEat</h1>
@@ -37,12 +38,15 @@
             </div>
         </div>
     </div>
+
     <div id="meal-of-the-day" class="meal-of-the-day hidden">
         <h2>Meal of the Day</h2>
         <img id="meal-of-the-day-img" src="" alt="Meal of the Day Image">
         <h3 id="meal-of-the-day-name">Meal Name</h3>
         <p id="meal-of-the-day-description">Meal Description</p>
     </div>
-    <script type="module" src="script.js"></script>
+
+    <!-- Remove "module" type -->
+    <script src="script.js"></script>
 </body>
 </html>
