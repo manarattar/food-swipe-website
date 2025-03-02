@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <!-- Main Container (Initially Hidden) -->
+    <!-- Main Container -->
     <div id="main-container" class="container hidden">
         <div id="card" class="card">
             <header>
@@ -30,12 +30,12 @@
             <div class="actions">
                 <div class="buttons">
                     <form action="{{ url_for('swipe', action='dislike') }}" method="post">
-                        <button type="submit" class="button dislike">
+                        <button type="submit" class="button dislike" id="dislike-button">
                             <i class="fas fa-thumbs-down"></i>
                         </button>
                     </form>
                     <form action="{{ url_for('swipe', action='like') }}" method="post">
-                        <button type="submit" class="button like">
+                        <button type="submit" class="button like" id="like-button">
                             <i class="fas fa-thumbs-up"></i>
                         </button>
                     </form>
@@ -44,11 +44,44 @@
         </div>
     </div>
 
-    <!-- JavaScript to Hide Popup and Show Main Content -->
+    <!-- JavaScript to Enable Swiping and Popup Closing -->
     <script>
+        // Close Popup & Show Main Content
         document.getElementById("close-popup").addEventListener("click", function () {
             document.getElementById("popup").style.display = "none"; // Hide popup
-            document.getElementById("main-container").classList.remove("hidden"); // Show the main content
+            document.getElementById("main-container").classList.remove("hidden"); // Show main content
+        });
+
+        // Swiping Feature
+        let touchstartX = 0;
+        let touchendX = 0;
+        const card = document.getElementById("card");
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) {
+                document.getElementById("dislike-button").click(); // Swipe Left → Dislike
+            }
+            if (touchendX > touchstartX + 50) {
+                document.getElementById("like-button").click(); // Swipe Right → Like
+            }
+        }
+
+        card.addEventListener("touchstart", (e) => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        card.addEventListener("touchend", (e) => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        // Also enable keyboard support (Arrow Left/Right)
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowLeft") {
+                document.getElementById("dislike-button").click();
+            } else if (e.key === "ArrowRight") {
+                document.getElementById("like-button").click();
+            }
         });
     </script>
 
