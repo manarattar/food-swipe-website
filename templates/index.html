@@ -9,15 +9,17 @@
 </head>
 <body>
 
+    <!-- Popup -->
     <div id="popup" class="popup">
         <div class="popup-content">
             <h2>Welcome to Food Swipe Selection!</h2>
             <p>Swipe right if you like a meal, and swipe left if you don't. After 20 swipes, we'll show you the perfect match meal of the day based on your preferences.</p>
-            <a href="/" class="button">Got it!</a>
+            <button id="close-popup">Got it!</button>
         </div>
     </div>
 
-    <div id="main-container" class="container">
+    <!-- Main Container -->
+    <div id="main-container" class="container hidden">
         <div id="card" class="card">
             <header>
                 <h1 class="title">SwipEat</h1>
@@ -41,6 +43,14 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript to Hide Popup -->
+    <script>
+        document.getElementById("close-popup").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "none"; // Hide popup
+            document.getElementById("main-container").classList.remove("hidden"); // Show the main content
+        });
+    </script>
 
 </body>
 </html>
