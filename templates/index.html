@@ -61,7 +61,7 @@
         function firstSwipe() {
             startPage.style.display = "none"; // Hide instructions
             mainContainer.classList.remove("hidden"); // Show meals
-            localStorage.setItem("seenInstructions", "true"); // Save that user has seen the instructions
+            sessionStorage.setItem("seenInstructions", "true"); // Only store in session
         }
 
         function handleGesture() {
@@ -77,10 +77,10 @@
             }
 
             if (touchendX < touchstartX - 50) {
-                document.getElementById("dislike-button").click(); // Swipe Left → Dislike
+                document.getElementById("dislike-button").click();
             }
             if (touchendX > touchstartX + 50) {
-                document.getElementById("like-button").click(); // Swipe Right → Like
+                document.getElementById("like-button").click();
             }
         }
 
@@ -111,12 +111,9 @@
             }
         });
 
-        // Ensure instruction page is only shown once
+        // Ensure instruction page always appears on refresh
         window.onload = function () {
-            if (localStorage.getItem("seenInstructions") === "true") {
-                startPage.style.display = "none"; // Hide if already seen
-                mainContainer.classList.remove("hidden"); // Show meals
-            }
+            sessionStorage.removeItem("seenInstructions"); // Reset on refresh
         };
     </script>
 
