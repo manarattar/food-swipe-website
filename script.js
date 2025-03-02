@@ -1,19 +1,32 @@
-async function fetchMeal() {
-    const response = await fetch('/get_meal');
-    const meal = await response.json();
+const BACKEND_URL = "https://your-app-name.onrender.com"; // Update this with your Render URL
 
-    document.getElementById("meal-img").src = meal.img;
-    document.getElementById("meal-name").textContent = meal.name;
-    document.getElementById("meal-description").textContent = meal.description;
+async function fetchMeal() {
+    try {
+        const response = await fetch(`${BACKEND_URL}/get_meal`);
+        if (!response.ok) throw new Error("Failed to fetch meal");
+        
+        const meal = await response.json();
+        document.getElementById("meal-img").src = meal.img;
+        document.getElementById("meal-name").textContent = meal.name;
+        document.getElementById("meal-description").textContent = meal.description;
+    } catch (error) {
+        console.error("Error fetching meal:", error);
+    }
 }
 
 async function updatePreferences(liked) {
-    await fetch('/update_preferences', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ liked: liked })
-    });
-    fetchMeal();
+    try {
+        const response = await fetch(`${BACKEND_URL}/update_preferences`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ liked: liked })
+        });
+
+        if (!response.ok) throw new Error("Failed to update preferences");
+        fetchMeal();
+    } catch (error) {
+        console.error("Error updating preferences:", error);
+    }
 }
 
 document.getElementById("like-button").addEventListener("click", () => updatePreferences(true));
