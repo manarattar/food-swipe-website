@@ -4,7 +4,6 @@ let currentMealIndex = 0;
 let userPreferences = {
      origin: {},
      meatKind: {},
-     type: {},
      taste: {},
      spicy: {},
  };
@@ -88,7 +87,7 @@ let userPreferences = {
      const weight = liked ? 1 : -1;
      userPreferences.origin[meal.category] = (userPreferences.origin[meal.category] || 0) + weight * 2;
      userPreferences.meatKind[meal.meatKind] = (userPreferences.meatKind[meal.meatKind] || 0) + weight * 3;
-     userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
+     userPreferences.spicy[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.spicy[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
      userPreferences.taste[meal.taste] = (userPreferences.taste[meal.taste] || 0) + weight * 2;
  
      
@@ -102,12 +101,12 @@ let userPreferences = {
  
          scoreA += (userPreferences.origin[a.category] || 0) * 2;
          scoreA += (userPreferences.meatKind[a.meatKind] || 0) * 3;
-         scoreA += (userPreferences.type[a.spicy ? "Spicy" : "Not Spicy"] || 0);
+         scoreA += (userPreferences.spicy[a.spicy ? "Spicy" : "Not Spicy"] || 0);
          scoreA += (userPreferences.taste[a.taste] || 0) * 2;
  
          scoreB += (userPreferences.origin[b.category] || 0) * 2;
          scoreB += (userPreferences.meatKind[b.meatKind] || 0) * 3;
-         scoreB += (userPreferences.type[b.spicy ? "Spicy" : "Not Spicy"] || 0);
+         scoreB += (userPreferences.spicy[b.spicy ? "Spicy" : "Not Spicy"] || 0);
          scoreB += (userPreferences.taste[b.taste] || 0) * 2;
  
          return scoreB - scoreA;
