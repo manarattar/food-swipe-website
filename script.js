@@ -1,7 +1,7 @@
 import meals from './meals_data.js';
- let currentMealIndex = 0;
+let currentMealIndex = 0;
  
- let userPreferences = {
+let userPreferences = {
      origin: {},
      meatKind: {},
      type: {},
