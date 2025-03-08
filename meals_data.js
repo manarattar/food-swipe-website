@@ -1,5 +1,5 @@
 let meals = [
-    {"name": "Currywurst", "img": "static/meal_images/Currywurst.png", "description": "German sausage served with a tangy curry ketchup sauce.", "category": "German", "meatKind": "Pork", "taste": "Savory", "spicy": false},
+    {"name": "Currywurst", "img": "/static/meal_images/Currywurst.png", "description": "German sausage served with a tangy curry ketchup sauce.", "category": "German", "meatKind": "Pork", "taste": "Savory", "spicy": false},
     {"name": "Fettuccine Alfredo", "img": "static/meal_images/Fettuccine_Alfredo.png", "description": "Creamy pasta dish made with butter, cream, and Parmesan cheese.", "category": "Italian", "meatKind": "Vegetarian", "taste": "Savory", "spicy": false},
     {"name": "Samosas", "img": "static/meal_images/Samosas.png", "description": "Deep-fried pastries filled with spiced potatoes, peas, or meat.", "category": "Indian", "meatKind": "Vegetarian", "taste": "Savory", "spicy": true},
     {"name": "Pho Ga", "img": "static/meal_images/Pho_Ga.png", "description": "Vietnamese chicken noodle soup with aromatic herbs.", "category": "Vietnamese", "meatKind": "Chicken", "taste": "Savory", "spicy": false},
