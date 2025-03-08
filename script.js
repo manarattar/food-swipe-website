@@ -83,6 +83,7 @@ let userPreferences = {
  }
  
  function updatePreferences(meal, liked) {
+     nextMeal();
      console.log(`Updating preferences for meal: ${meal.name}, liked: ${liked}`);
      const weight = liked ? 1 : -1;
      userPreferences.origin[meal.category] = (userPreferences.origin[meal.category] || 0) + weight * 2;
@@ -90,7 +91,7 @@ let userPreferences = {
      userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] = (userPreferences.type[meal.spicy ? "Spicy" : "Not Spicy"] || 0) + weight;
      userPreferences.taste[meal.taste] = (userPreferences.taste[meal.taste] || 0) + weight * 2;
  
-     nextMeal();
+     
  }
  
  function recommendMeals() {
